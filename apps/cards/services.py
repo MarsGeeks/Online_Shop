@@ -1,5 +1,9 @@
 from apps.cards.models import *
 from apps.cards.exceptions import AlreadyInFavoritesError, ProductNotFoundError
+
+def get_product():
+    return Product.objects.all()
+
 def get_favorite_product(user):
     favorites_products = UserFavoriteProduct.objects.filter(user=user)
     product_id = favorites_products.values_list('product_id', flat=True)

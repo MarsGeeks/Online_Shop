@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.exceptions import NotFound
 from rest_framework import generics, filters, status
 from apps.users import constants
+from rest_framework.viewsets import ModelViewSet
 from apps.cards.serializers import *
 from apps.cards.exceptions import ProductNotFoundError, AlreadyInFavoritesError 
 from apps.cards.services import (
@@ -13,8 +14,20 @@ from apps.cards.services import (
     is_event_in_favorites,
     add_product_to_favorites,
     remove_product_from_favorites,
+    get_product,
 )
 # Create your views here.
+class ProductListAPIView(APIView):
+    serializer_class = ProductSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return get_product()
+
+class ProductDetailAPIView(ModelViewSet):
+    serializer_class = ProductDetailSerializer
+    lookup_field = 'id'
+
 class FavoriteListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
