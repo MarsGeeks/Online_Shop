@@ -1,7 +1,6 @@
 from django.db import models
 from apps.users import models as user_models
 
-# Create your models here.
 class Product(models.Model):
     image = models.ImageField()
     title = models.CharField(max_length=30)

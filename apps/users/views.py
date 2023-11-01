@@ -11,12 +11,10 @@ from django.contrib.auth import authenticate, hashers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils import timezone
 from django.core.mail import send_mail
-from apps.events.models import Events
-from apps.events.serializers import EventsSerializer
 import random
 from django.shortcuts import get_object_or_404
-
-
+from apps.cards.models import Product
+from apps.cards.serializers import ProductSerializer
 class PasswordResetRequestAPIView(generics.CreateAPIView):
     """ API for search user and send mail with code """
 
@@ -224,9 +222,9 @@ class DeleteAccountView(generics.DestroyAPIView):
         return self.request.user
 
 
-class UserEventsListAPIView(generics.ListAPIView):
-    serializer_class = EventsSerializer
+class UserPoductListAPIView(generics.ListAPIView):
+    serializer_class = ProductSerializer
 
     def get_queryset(self):
         user = self.request.user
-        return Events.objects.filter(author_id=user)
+        return Product.objects.filter(author_id=user)

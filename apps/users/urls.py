@@ -8,7 +8,6 @@ urlpatterns = [
     path("sign_out/", views.LogoutAPIView.as_view(), name="user-logout"),
     path('profile/', views.UserProfileView.as_view(), name='user-profile'),
     path('profile/delete/', views.DeleteAccountView.as_view(), name='delete-account'),
-    path('profile/user_events/', views.UserEventsListAPIView.as_view(), name='User-events-list'),
     path("reset-password-email/", views.PasswordResetRequestAPIView.as_view(), name="search user and send mail"),
     path("reset-password-code/", views.PasswordResetCodeAPIView.as_view(), name="write code"),
     path("reset-new-password/<str:code>/", views.PasswordResetNewPasswordAPIView.as_view(), name="write new password")
