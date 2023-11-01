@@ -1,12 +1,24 @@
 from django.db import models
 from apps.users import models as user_models
-
+from apps.cards.constans import RATING
 class Product(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)
-    rating = models.PositiveIntegerField()
-    
+
+    rating = models.IntegerField(choices=RATING, default=1)
+
+    @property
+    def average_rating(self):
+        ratings = [product.rating for product in Product.objects.all()]
+        ratings_count = len(ratings)
+
+        if ratings_count > 0:
+            sum_ratings = sum(ratings)
+            average = sum_ratings / ratings_count
+            return min(5, max(0, average))  # Ограничение значений от 0 до 5
+        else:
+            return 0
     def __str__(self):
         return self.title
     
