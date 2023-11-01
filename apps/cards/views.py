@@ -28,6 +28,14 @@ class ProductDetailAPIView(ModelViewSet):
     serializer_class = ProductDetailSerializer
     lookup_field = 'id'
 
+class ProductCreateAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class FavoriteListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 

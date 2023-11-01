@@ -22,6 +22,7 @@ from apps.cards.views import *
 
 urlpatterns = [
     path('products/', ProductListAPIView.as_view()),
+    path('product/create/', ProductCreateAPIView.as_view()),
     path('product/<int:id>/', ProductDetailAPIView.as_view({'get': 'retrieve'})),
     path('favorite/', FavoriteListAPIView.as_view()),
     path("favorite/add/<int:product_id>/", AddToFavoritesAPIView.as_view()),
