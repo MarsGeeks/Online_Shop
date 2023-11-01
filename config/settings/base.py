@@ -45,6 +45,7 @@ DJANGO_APPS = [
 PROJECTS_APPS = [
     "apps.users",
     "apps.cards",
+    "apps.product"
 
 ]
 

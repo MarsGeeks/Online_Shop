@@ -118,13 +118,6 @@ class UserRegistrationAPIView(generics.CreateAPIView):
                     password=serializer.validated_data["password"],
                 )
 
-                user = models.User.objects.create_user(firstname=serializer.validated_data["firstname"],
-                                                       lastname=serializer.validated_data["lastname"],
-                                                       email=serializer.validated_data["email"],
-                                                       birthday=serializer.validated_data["birthday"],
-                                                       gender=serializer.validated_data["gender"],
-                                                       password=serializer.validated_data["password"],
-                                                       )
                 return response.Response(data=GetLoginResponseService.get_login_response(user, request))
 
             else:

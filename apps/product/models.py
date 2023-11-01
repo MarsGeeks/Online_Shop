@@ -1,8 +1,9 @@
 from django.db import models
-
+from apps.cards.models import Product
 # Create your models here.
 class ProductImage(models.Model):
-    photo = models.ImageField(upload_to='apps/media/image/')
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media/product_image/')
 
     class Meta:
         verbose_name = "Фото товара"

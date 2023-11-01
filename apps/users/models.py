@@ -7,8 +7,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(max_length=45, verbose_name="Имя")
     lastname = models.CharField(max_length=45, verbose_name="Фамилия")
     email = models.EmailField(unique=True, verbose_name="Эл. почта")
-    image = models.ImageField(blank=True, verbose_name="Аватар", upload_to="avatar/", default="/avatar/default_photo"
-                                                                                              "/default_avatar.jpg")
+    image = models.ImageField(blank=True, verbose_name="Аватар", upload_to="media/avatar/", default="media/avatar/avatar.jpg")
     birthday = models.DateField(null=True, blank=True, verbose_name="День рождения")
     gender = models.CharField(choices=constants.GENDER, verbose_name="Пол", max_length=20)
     is_active = models.BooleanField("Активен", default=True)
