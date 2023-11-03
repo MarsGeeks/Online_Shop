@@ -48,18 +48,18 @@ class LogoutSerailiser(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = 'id product_image firstname lastname email'.split()
+        fields = 'id image firstname lastname email'.split()
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
-        fields = ['product_image', 'firstname', 'lastname', 'gender', 'birthday']
+        fields = ['image', 'firstname', 'lastname', 'gender', 'birthday']
 
     def update(self, instance, validated_data):
         instance.firstname = validated_data.get('firstname', instance.firstname)
         instance.lastname = validated_data.get('lastname', instance.lastname)
-        instance.image = validated_data.get('product_image', instance.image)
+        instance.image = validated_data.get('image', instance.image)
         instance.birthday = validated_data.get('birthday', instance.birthday)
         instance.gender = validated_data.get('gender', instance.gender)
         instance.save()

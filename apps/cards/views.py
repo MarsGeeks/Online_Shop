@@ -39,10 +39,9 @@ class ProductCreateAPIView(APIView):
 class FavoriteListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
+    def get(self, request):
         user = request.user
-        product = (user)
-
+        product = Product.objects.filter(userfavoriteproduct__user=user)
         paginator = PageNumberPagination()
         paginator.page_size = 10
 
