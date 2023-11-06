@@ -6,6 +6,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['product_image', 'get_full_name']
+
+class ImageProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = '__all__'
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
