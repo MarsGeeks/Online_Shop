@@ -20,13 +20,17 @@ from apps.cards.services import (
 class ProductListAPIView(APIView):
     serializer_class = ProductSerializer
     lookup_field = 'id'
-
+    def get(self, request):
+        products = self.get_queryset()
+        serializer = self.serializer_class(products, many=True)  # Сериализуем продукты
+        return Response(serializer.data)
     def get_queryset(self):
         return get_product()
 
 class ProductDetailAPIView(ModelViewSet):
     serializer_class = ProductDetailSerializer
     lookup_field = 'id'
+    queryset = get_product()
 
 class ProductCreateAPIView(APIView):
     permission_classes = [IsAuthenticated]

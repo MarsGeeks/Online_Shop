@@ -32,7 +32,7 @@ class Product(models.Model):
     description = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)
     subcategory = models.ManyToManyField(SubCategory, verbose_name="Категории")
-    rating = models.IntegerField(choices=RATING, default=1)
+    rating = models.IntegerField(choices=RATING, default=0)
 
     @property
     def average_rating(self):

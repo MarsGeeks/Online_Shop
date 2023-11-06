@@ -1,1 +1,1 @@
-RATING = [(i, i) for i in range(1, 6)]
+RATING = [(i, i) for i in range(0, 6)]
