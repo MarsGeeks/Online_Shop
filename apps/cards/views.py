@@ -82,3 +82,39 @@ class RemoveFromFavoritesAPIView(APIView):
         user = request.user
         remove_product_from_favorites(user, product_id)
         return Response({'message': 'Событие удалено из избранного'}, status=status.HTTP_200_OK)
+
+class CartAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        cart, created = Cart.objects.get_or_create(user=user)
+        cart_items = CartItem.objects.filter(cart=cart)
+        serialized_cart_items = CartItemSerializer(cart_items, many=True)
+        return Response(serialized_cart_items.data, status=status.HTTP_200_OK)
+
+class AddToCartAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, product_id):
+        user = request.user
+        product = Product.objects.get(pk=product_id)
+        cart, created = Cart.objects.get_or_create(user=user)
+        cart_item, item_created = CartItem.objects.get_or_create(cart=cart, product=product)
+
+        if not item_created:
+            cart_item.quantity += 1
+            cart_item.save()
+
+        return Response({'message': 'Товар добавлен в корзину'}, status=status.HTTP_200_OK)
+
+class RemoveFromCartAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, cart_item_id):
+        try:
+            cart_item = CartItem.objects.get(pk=cart_item_id)
+            cart_item.delete()
+            return Response({'message': 'Товар удален из корзины'}, status=status.HTTP_200_OK)
+        except CartItem.DoesNotExist:
+            return Response({'message': 'Такой товар не найден в корзине'}, status=status.HTTP_404_NOT_FOUND)

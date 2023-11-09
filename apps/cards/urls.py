@@ -26,5 +26,8 @@ urlpatterns = [
     path('product/<int:id>/', ProductDetailAPIView.as_view({'get': 'retrieve'})),
     path('favorite/', FavoriteListAPIView.as_view()),
     path("favorite/add/<int:product_id>/", AddToFavoritesAPIView.as_view()),
-    path("favorite/remove/<int:product_id>", RemoveFromFavoritesAPIView.as_view()),
+    path("favorite/remove/<int:product_id>/", RemoveFromFavoritesAPIView.as_view()),
+    path('basket/', CartAPIView.as_view()),
+    path("basket/add/<int:product_id>/", AddToCartAPIView.as_view()),
+    path('basket/remove/<int:cart_item_id>/', RemoveFromCartAPIView.as_view(), name='remove_from_cart')
 ]

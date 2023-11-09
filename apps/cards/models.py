@@ -57,12 +57,12 @@ class UserFavoriteProduct(models.Model):
         user_full_name = self.user.get_full_name()
         return f"{user_full_name} - {self.product.title}"
 
-class Basket(models.Model):
-    user = models.ForeignKey(user_models.User, on_delete=models.CASCADE, verbose_name="Пользователь")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Товар")
+class Cart(models.Model):
+    user = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        user_full_name = self.user.get_full_name()
-        return f"{user_full_name} - {self.product.title}"
-
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
 
