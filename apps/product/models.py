@@ -10,13 +10,13 @@ class ProductImage(models.Model):
         verbose_name = "Фото товара"
         verbose_name_plural = "Фотки товаров"
 
-class Comment(models.Model):
+class Review(models.Model):
     text = models.CharField(max_length=300)
     user = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
     product = models.ForeignKey(cards_models.Product, on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Коментария"
-        verbose_name_plural = "Коментарии"
+        verbose_name = "отзыв"
+        verbose_name_plural = "отзывы"
 
