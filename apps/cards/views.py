@@ -8,13 +8,14 @@ from rest_framework import generics, filters, status
 from apps.users import constants
 from rest_framework.viewsets import ModelViewSet
 from apps.cards.serializers import *
-from apps.cards.exceptions import ProductNotFoundError, AlreadyInFavoritesError 
+from apps.cards.exceptions import ProductNotFoundError, AlreadyInFavoritesError
 from apps.cards.services import (
     get_favorite_product,
     is_event_in_favorites,
     add_product_to_favorites,
     remove_product_from_favorites,
     get_product,
+    get_events_by_subcategory
 )
 # Create your views here.
 class ProductListAPIView(APIView):
@@ -40,6 +41,15 @@ class ProductCreateAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SubCategoryProductsView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        subcategory_id = self.kwargs['id']
+        queryset = get_events_by_subcategory(subcategory_id)
+        return queryset
+
 class FavoriteListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 

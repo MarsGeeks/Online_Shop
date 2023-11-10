@@ -1,8 +1,13 @@
 from apps.cards.models import *
 from apps.cards.exceptions import AlreadyInFavoritesError, ProductNotFoundError
 
-def get_product():
-    return Product.objects.all()
+def get_product(subcategory=None):
+    queryset = Product.objects.all()
+
+    if subcategory:
+        queryset = queryset.filter(subcategory__name=subcategory)
+
+    return queryset
 
 def get_favorite_product(user):
     favorites_products = UserFavoriteProduct.objects.filter(user=user)
@@ -31,3 +36,8 @@ def add_product_to_favorites(user, product_id):
 
 def remove_product_from_favorites(user, product_id):
     UserFavoriteProduct.objects.filter(user=user, product_id=product_id).delete()
+
+def get_events_by_subcategory(subcategory_id):
+
+    queryset = Product.objects.filter(subcategory_id=subcategory_id)
+    return queryset
