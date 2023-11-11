@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import generics, status, exceptions, response, permissions
+from rest_framework.response import Response
+
 from apps.users import serializers, models
 from django.db import IntegrityError
 from .serializers import UserProfileSerializer
@@ -206,6 +208,23 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        partial_data = request.data.copy()
+
+        # Удалите пустые значения из словаря, чтобы они не считались обязательными
+        for key, value in partial_data.items():
+            if value == "":
+                partial_data.pop(key)
+
+        serializer = self.get_serializer(instance, data=partial_data, partial=True)
+        serializer.is_valid(raise_exception=True)
+
+        # Дополнительная логика перед сохранением, если необходимо
+        instance = serializer.save()
+
+        # Возвращаем обновленный профиль
+        return Response(self.get_serializer(instance).data)
 
 class DeleteAccountView(generics.DestroyAPIView):
     queryset = User.objects.all()
