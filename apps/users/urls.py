@@ -10,5 +10,7 @@ urlpatterns = [
     path('profile/delete/', views.DeleteAccountView.as_view(), name='delete-account'),
     path("reset-password-email/", views.PasswordResetRequestAPIView.as_view(), name="search user and send mail"),
     path("reset-password-code/", views.PasswordResetCodeAPIView.as_view(), name="write code"),
-    path("reset-new-password/<str:code>/", views.PasswordResetNewPasswordAPIView.as_view(), name="write new password")
+    path("reset-new-password/<str:code>/", views.PasswordResetNewPasswordAPIView.as_view(), name="write new password"),
+    path("myproduct/", views.UserProductListAPIView.as_view())
+
 ]

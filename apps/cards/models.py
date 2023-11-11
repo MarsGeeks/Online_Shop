@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models import Avg
-
 from apps.users import models as user_models
 from apps.cards.constans import RATING
 
@@ -28,6 +27,7 @@ class SubCategory(models.Model):
         verbose_name_plural = "Под категории"
 
 class Product(models.Model):
+    user = models.ForeignKey(user_models.User, on_delete=models.CASCADE, verbose_name="Автор")
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)

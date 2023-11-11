@@ -212,7 +212,6 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
         instance = self.get_object()
         partial_data = request.data.copy()
 
-        # Удалите пустые значения из словаря, чтобы они не считались обязательными
         for key, value in partial_data.items():
             if value == "":
                 partial_data.pop(key)
@@ -220,10 +219,8 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
         serializer = self.get_serializer(instance, data=partial_data, partial=True)
         serializer.is_valid(raise_exception=True)
 
-        # Дополнительная логика перед сохранением, если необходимо
         instance = serializer.save()
 
-        # Возвращаем обновленный профиль
         return Response(self.get_serializer(instance).data)
 
 class DeleteAccountView(generics.DestroyAPIView):
@@ -234,9 +231,9 @@ class DeleteAccountView(generics.DestroyAPIView):
         return self.request.user
 
 
-class UserPoductListAPIView(generics.ListAPIView):
+class UserProductListAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
         user = self.request.user
-        return Product.objects.filter(author_id=user)
+        return Product.objects.filter(user_id=user)
