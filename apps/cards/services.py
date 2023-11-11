@@ -38,6 +38,5 @@ def remove_product_from_favorites(user, product_id):
     UserFavoriteProduct.objects.filter(user=user, product_id=product_id).delete()
 
 def get_events_by_subcategory(subcategory_id):
-
-    queryset = Product.objects.filter(subcategory_id=subcategory_id)
+    queryset = Product.objects.filter(subcategory__id=subcategory_id)
     return queryset
