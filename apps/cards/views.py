@@ -26,7 +26,19 @@ class ProductListAPIView(APIView):
         serializer = self.serializer_class(products, many=True)  # Сериализуем продукты
         return Response(serializer.data)
     def get_queryset(self):
-        return get_product()
+        queryset = get_product()
+
+        # Получаем параметры поиска из запроса
+        search_title = self.request.query_params.get('title', None)
+        search_date = self.request.query_params.get('date', None)
+
+        # Фильтруем по названию или дате, если они предоставлены
+        if search_title:
+            queryset = queryset.filter(title__icontains=search_title)
+        if search_date:
+            queryset = queryset.filter(date=search_date)
+
+        return queryset
 
 class ProductDetailAPIView(ModelViewSet):
     serializer_class = ProductDetailSerializer
