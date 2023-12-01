@@ -2,9 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Online_shops</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #555;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    Привет
+
+    <header>
+        <h1>Добро пожаловать в магазин</h1>
+    </header>
+
+    <nav>
+        <a href="#">Главная</a> |
+        <a href="#">Каталог</a> |
+        <a href="#">Контакты</a>
+    </nav>
+
+    <main>
+        <div class="product-card">
+            <div class="product-title">Продукт 1</div>
+            <div class="product-description">Описание продукта 1</div>
+            <div class="product-price">Цена: $50</div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-title">Продукт 2</div>
+            <div class="product-description">Описание продукта 2</div>
+            <div class="product-price">Цена: $75</div>
+        </div>
+
+        <!-- Добавьте другие продукты здесь -->
+
+    </main>
+
+    <footer>
+        &copy; 2023 Магазин. Все права защищены.
+    </footer>
+
 </body>
 </html>

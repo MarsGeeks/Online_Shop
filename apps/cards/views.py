@@ -140,3 +140,5 @@ class RemoveFromCartAPIView(APIView):
             return Response({'message': 'Товар удален из корзины'}, status=status.HTTP_200_OK)
         except CartItem.DoesNotExist:
             return Response({'message': 'Такой товар не найден в корзине'}, status=status.HTTP_404_NOT_FOUND)
+
+class
